@@ -62,21 +62,18 @@ show global variables like 'log_bin';
 show binary logs;     --查看二进制日志
 show master status;   --查看当前使用的日志(主要查看现在是用的哪个二进制日志)
 
---暂时开启日志：(关闭mysql之后日志又会关闭)
-
-mysqlbinlog mail-bin.000001 | tail
-update 
-
 --要永久开启二进制日志和其他日志，可以配置my.ini文件，配置方法可以查看我的另一篇博文：http://blog.csdn.net/databatman/article/details/49951853
 --注：网上大部分的配置都是针对mysql5.6版本以前的，基本已经过时了，此配置方法是针对mysql5.6.x以后版本的
 
---日志更新(每使用一次，二进制日志的序号+1，即新建一个二进制日志，可使用查看二进制日志的方法查看)
-flush logs;
---此外，每次重启服务器也会+1，
 
+--关于使用日志恢复数据库的博文    http://blog.csdn.net/alvine008/article/details/9097105
+--本来想自己写一个，后来发现这个已经写得很nice了，毕竟现在的我还没在企业实践过，写出来也是半吊子，就不写啦
 
-
-
+--综上，时间轴一般是：
+--   1.备份数据库，同时启动了二进制日志
+--   2.一段时间后，数据库意外崩溃
+--   3.使用以前的数据库备份来恢复数据库
+--   4.同时调用从备份到崩溃前的日志恢复数据库到崩溃前状态
 
 
 
@@ -85,7 +82,8 @@ drop database if exists Heros;  --如果存在，就删除
 
 
 --用python来调用mysql数据库
---参见我的另一篇博文：
+--参见本篇博文:
+--或者见另一个代码文件：python-mysql.py
 
 
 
