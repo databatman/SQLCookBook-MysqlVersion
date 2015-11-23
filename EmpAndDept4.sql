@@ -1,4 +1,14 @@
+--EmpAndDept4
+--主要关于表格的更复杂查询(多表、多层)、视图的创建
+
 --复杂的多表查询
+--分为查询、子查询、连接查询
+--简单解释如下：
+select * from emp;                                          --查询
+select * from (select empno,sal from emp) v;                  --子查询
+select * from emp e left join dept d on e.deptno=d.deptno;  --连接查询
+--注：子查询的话，子表需要附名字
+
 
 --显示表格前几行
 select * from emp limit 4;
@@ -14,7 +24,7 @@ select ename,coalesce(comm) as comm from emp;
 
 --重复的数据
 --union对2个结果集取并集，重复数据仅显示一次
---union all 对...，       重复数据全部显示
+--union all 对结果取并集，重复数据全部显示
 --如下例子（所谓视图就是临时表的意思，但要知道，当实际表的内容改变时，视图的表也会跟着改变）
 --第二个语句创建的v将在后面使用到
 create view v as select * from emp union select * from emp;
@@ -29,7 +39,7 @@ create view v as
 --例子：查询在deptno里，emp里没有的部门
 select depno from dept d where not exists(select deptno from emp e where e.deptno=d.deptno);
 
---使用关联子查询和union all 来查找视图V中存在而在表emp中不存在的行，然后与在表emp中存在而在视图v中不存在
+--例子：使用关联子查询和union all 来查找视图V中存在而在表emp中不存在的行，然后与在表emp中存在而在视图v中不存在
 --的行进行合并
 --cookbook上的这个例子简直又臭又长，花了好长功夫才搞懂，如下：
 --要看懂这个得简化下他的表达式如下：
@@ -87,6 +97,7 @@ insert into emp_bonus values(7934,2005-2-15,2);
 alter table emp_bonus empno empno int(10);
 alter table emp_bonus drop primary key;
 --之后再insert
+
 
 --返回所有员工的姓名，工资,部门号和奖金，type为1时奖金为薪水的10%，type为2时奖金为薪水的20%，3时为30%
 select e.empno,e.ename,e.deptno,e.sal,e.sal* case 

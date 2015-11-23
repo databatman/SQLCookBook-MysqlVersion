@@ -1,6 +1,8 @@
+--EmpAndDept3
+--主要是简单查询和表格的创建(列的默认属性check/unique/default设置))
+
 --from 子句中使用子查询
 --显示高于部门平均工资的员工名字,薪水和他所在部门的平均工资
---分心
 --①首先知道各个部门的平均工资
 select avg(sal),deptno from emp group by deptno;
 --②把上边的结果当做一个临时表对待
@@ -184,9 +186,7 @@ foreign key(goodId) references goods(goodId)
 )engine=InnoDB;
 
 
---sql server数据库的备份和恢复
---删除数据库
-drop database Heros
+
 
 
 

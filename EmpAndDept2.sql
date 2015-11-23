@@ -1,3 +1,6 @@
+--EmpAndDept2
+--简单的表格查询
+
 --多表查询
 --需要思考的问题
 --①通过什么条件把两张表联系起来
@@ -36,7 +39,6 @@ select * from emp where job in
 select * from emp where (job in
 (select distinct job from emp where deptno=10)) and deptno!=10;
 --在from子句中使用子查询
---
 
 
 
